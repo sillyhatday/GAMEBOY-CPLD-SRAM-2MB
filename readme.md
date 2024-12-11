@@ -10,7 +10,10 @@ This cart version uses SRAM like the original project from Alex.
 As much as I love using FRAM to bring this old technology towards the modern age in terms of convenience, it is technically not compatible due to timing reasons, it's really expensive new, China dodgy parts don't always work and on the whole it's a pain.
 Embrace SRAM, it's cheap and available. The battery life is not an issue anyway as my original Pokemon Red, Blue and Yellow carts are still using the original batteries with lots of life left in them yet after 25 years.
 
+As well as a thanks to Alex for sharing his project for us to use, I want to thank Bucket Mouse for also sharing his work with everyone. The SRAM supervisor circuit is directly lifted from his cartridge projects and saved me a lot of time and frustration designing my own.
+
 ### Alex's project can be found here: https://github.com/insidegadgets/Gameboy-MBC5-MBC1-Hybrid
+### Buckets projects can be found here: https://github.com/MouseBiteLabs
 
 ## Advantages vs disadvantages:
 
@@ -132,12 +135,22 @@ Finally time to program the CPLD. Check “Program/Configure” and “Verify”
 
 ![6 ProgVerifyCPLD](https://github.com/sillyhatday/GAMEBOY-MBC5-CPLD-2MB/assets/65309612/22686784-cfa1-4366-9776-a0bd3121f770)
 
-Once this is done, you are done with the software and programming adaptor. If you are building multiple carts then I'd suggested repeating these steps before moving any further with all of them. Any trouble programming is usually due to a bad JTAG connection, if that isn't the case
-then the CPLD is likely bad. I've seen totally dead ones, ones that ID and don't program and ones that program yet don't function. I've tried everything to make sure these were faulty.
+Once this is done, you are done with the software and programming adaptor. If you are building multiple carts then I'd suggested repeating these steps before moving any further with all of them. Any trouble programming is usually due to a bad JTAG connection, if that isn't the case then the CPLD is likely bad. I've seen totally dead ones, ones that ID and don't program and ones that program yet don't function. I've tried everything to make sure these were faulty.
 
 Next up get the flash chip attached to the PCB along with it's supporting capacitor. Once done the cart is ready for the first of a few tests.
 
-Move over to your GBxCart software and test it out. You'll need to manualy set the cartridge type for the first time programming.
+Move over to your GBxCart software and test it out. You'll need to manualy set the cartridge type for the first time programming. It should program whatever ROM you choose. I suggest a ROM that is the full size of the flash chip to make sure all functions on the cart
+are functioning properly. Problems that you could come across are that the CPLD is dead and the flash doesn't program properly. One tell is that the process fails at 16kB due to the higher address lines not being controlled by the dead CPLD.
+
+If things went well and programmed correctly then try it in a Gameboy to see if it boots and everything looks good. If this is the case, move onto the next step of the SRAM.
+
+It is best to start with the SRAM supervisor IC as it is the last tricky IC to solder. Any shorts across pins on this can cause havoc with SRAM issues and even hold the Gameboy in reset (Ask me how I know). After that put everything else on the PCB except for the battery holder. It's best to test the cart in a Gameboy now and see that it still boots. If the screen stays black, don't worry, it's just the CPU being held in reset. Go back over the supervisor IC and make sure there are no shorts. They are nearly invisible on this chip.
+
+If it boots up correctly then test the SRAM. To do this I suggest to reprogram the cartridge with a game that uses the SRAM as extra system RAM. The best game for this is Pokemon Red/Blue/Green/Yellow as the Pokemon sprites are decompressed inside the cartridge RAM, then the earliest time you see the sprites are on the title screen. If you have any sprites that look wrong, you have an issue somewhere in the SRAM circuit. If the sprites are blank then it's likely somewhere on the chip select logic. If they have small glitches then it's likely an address or data line issue.
+
+At this point you can solder on the battery holder, stuff a battery in it and do one final test. Again using Pokemon start a new game and see if you can save the game. After that power off the console for 5 to 10 seconds and see if the save is still there. If so then you are done. If not, then you have an issue with a dead battery or still issues on the supervisor IC.
+
+Thats it done. This is quite involved vs the FRAM version. FRAM might be dodgy and require resoldering multiple times but there is much less of other things to go wrong. So pick your poison, deal with FRAM or SRAM and it's extra supporting components. That said, I've a FRAM testing cart to upload, removing all problems by being able to bin all bad chips before using them.
 
 ## Compatibility
 
@@ -162,6 +175,8 @@ Game gear Adaptor: https://www.thingiverse.com/thing:5830799
 Alternative Download for Quartus: https://archive.org/details/quartus-iiprogrammer-and-signal-tap-ii-13.1.0.162.7z
 
 ## Extra Links
+
+Once again, thankyou to everyone for sharing their work with everyone for free
 
 https://shop.insidegadgets.com
 
