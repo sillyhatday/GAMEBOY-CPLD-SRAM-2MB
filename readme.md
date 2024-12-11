@@ -22,6 +22,7 @@ As well as a thanks to Alex for sharing his project for us to use, I want to tha
 	+ No need for sourcing a donor cartridge
 	+ Multi MBC compatibility
 	+ Cheaper to build vs a donor cart (initially not, more made, more saved)
+ 	+ No messing with expensive FRAM or dodgy back ally FRAM
 
 ### Disadvantages:
 
@@ -30,6 +31,7 @@ As well as a thanks to Alex for sharing his project for us to use, I want to tha
 	- Power use is high
 	- Extra components required to program CPLD
  	- More circuit board components required
+  	- Requires a battery to save data
 
 ## Prerequisites
 
