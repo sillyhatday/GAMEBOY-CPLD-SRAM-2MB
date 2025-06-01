@@ -87,6 +87,16 @@ So why did Nintendo remove this idiot proof feature from their first mapper in t
 
 The theory is that this should be 100% compatible with MBC5. That said, it is not programmed to behave exactly like an MBC5, so there could be a game out there that doesn't work.
 
+## PCB Versions
+
+### V1.0
+
+First version, confirmed working.
+
+![Gameboy CPLD Cart + SRAM Front](https://github.com/user-attachments/assets/bfedf3a0-f963-46ce-9725-eeb6cd695a92)
+
+![Gameboy CPLD Cart + SRAM Back](https://github.com/user-attachments/assets/0385e6f7-6376-4245-91c1-fe59061d6bce)
+
 ## Firmware Versions
 
 ### V1.0
