@@ -15,6 +15,16 @@ As well as a thanks to Alex for sharing his project for us to use, I want to tha
 ### Alex's project can be found here: https://github.com/insidegadgets/Gameboy-MBC5-MBC1-Hybrid
 ### Buckets projects can be found here: https://github.com/MouseBiteLabs
 
+## Updates
+
+I threw in the towel on this project when I ran into issues testing MAX7000 and ATF150X chips. The code that worked on on the MAX3000 did not work as expected on the other chips. I needed a break to think about where to go from there. The main factor being, I am not a software engineer. I've since picked up C++ in arduino world and things in Verilog start to make sense. They are not the same at all, I know. In a basic sense, they both have IF statements, similar syntax like == and structures.
+
+What happened was the MAX7000 and ATF150X (specifically the 7032S & 1502A) behave differently to the 3032A. ROM banking is flawless, both the Gameboy being able to read and also GBXcart being able to write. The problems I ran into were with SRAM. Some carts would save and load fine, while GBXcart would fail to write or read SRAM. The software seems to not know it failed (or it's verification was destructive). Some carts would not work at all on any device. The reason I use Pokemon R/G/B/Y is due to the SRAM sprite decompression. You can see in the title screen how well it is working. This is not isolated to SRAM, this is the same for FRAM. This problem also affects some 3032A carts though less often.
+
+In the end I have decided on a path forwards. I will continue with the EPM3064A and ATF1504A chips, dropping the MAX7000 series. The reason being, the MAX7000 is just not as available, its very old now and they cost more than the MAX3000 chips. The 1504A I only wish to continue with due to its availability as new. Sadly, it doews require a deifferent method of programming with a different programmer. The other point is the move to 64 and 04 vs the original aim for 32 and 02. Well, I've been poking at the software and the macro cell count is not enough.
+
+I intend to start learning Verilog well enough to tackle this project again. I have a dev board on the way and that will be used to code a BCD to 7 segment display decoder. I think it's complex enough to really dig in to things as a novice, while the principles of such a decoder are well documented, making the only hurdle to creating such a thing, is the language itself.
+
 ## Advantages vs disadvantages:
 
 ### Advantages:
