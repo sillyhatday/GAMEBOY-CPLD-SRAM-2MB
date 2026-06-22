@@ -29,6 +29,27 @@ The smaller EPM3032A, EPM7032S & ATF1502 with 32 macro cells are now more than b
 
 This is all very nice as the smaller chips tend to use less power than the larger counterparts, even though they use the same quantity of macro cells. I'll add more detailed information on the changes in its own readme.
 
+## Project State:
+
+### Done
+
+	- Get a cartridge that works well enough
+	- Make the Altera 3032A & 3064A both work
+	- Fix SRAM problems with MAX7000 and edge case MAX3000
+
+### In Progress
+
+	- Fix this readme after half updating and rage quitting. Remove V2.0 PCB pics.
+	- Write draft of instructions for programming Atmel chips
+	- Do some power tests of carts I have built so far.
+
+## To Do
+
+	- Test flashing Atmel chips in circuit
+	- Design some hardware to flash Atmel chips in circuit
+	- Update PCB to include solder jumper for different CPLD families.
+	- Some issues with SRAM in FlashGBX with Atmel 1502A. Check hardware over & adjust WinCUPL settings.
+
 ## Advantages vs disadvantages:
 
 ### Advantages:
