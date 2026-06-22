@@ -2,28 +2,32 @@
 
 ## Introduction:
 
-This is my take of a CPLD based flash cart. This is my second version of it, and my final version. I may update to a 4MB version though it is not a priority on my project list.
+This is my take of a CPLD based flash cart. This is my second version of it, and my final version. I plan to update to a 4MB version.
 
 The whole project is based from Alex's project from years back. Without that project, I would never have picked this up and spend my time figuring out how to work with CPLDs. I am not a programmer and do not claim to be. Picking up Alex's code I can see how things work with my previous knowledge of how carts operate.
 This cart version uses SRAM like the original project from Alex.
 
-As much as I love using FRAM to bring this old technology towards the modern age in terms of convenience, it is technically not compatible due to timing reasons, it's really expensive new, China dodgy parts don't always work and on the whole it's a pain.
-Embrace SRAM, it's cheap and available. The battery life is not an issue anyway as my original Pokemon Red, Blue and Yellow carts are still using the original batteries with lots of life left in them yet after 25 years.
+As much as I love using FRAM to bring this old technology towards the modern age in terms of convenience, it is technically not compatible due to timing reasons, it's really expensive new, China dodgy parts don't always work, on the whole it's a pain.
+Embrace SRAM, it's cheap and available. The battery life is not an issue, as my original Pokemon Red, Blue and Yellow carts are still using the original batteries with lots of life left in them yet after 25 years.
 
 As well as a thanks to Alex for sharing his project for us to use, I want to thank Bucket Mouse for also sharing his work with everyone. The SRAM supervisor circuit is directly lifted from his cartridge projects and saved me a lot of time and frustration designing my own.
 
 ### Alex's project can be found here: https://github.com/insidegadgets/Gameboy-MBC5-MBC1-Hybrid
 ### Buckets projects can be found here: https://github.com/MouseBiteLabs
 
-## Updates
+## Update June 2026
 
-I threw in the towel on this project when I ran into issues testing MAX7000 and ATF150X chips. The code that worked on on the MAX3000 did not work as expected on the other chips. I needed a break to think about where to go from there. The main factor being, I am not a software engineer. I've since picked up C++ in arduino world and things in Verilog start to make sense. They are not the same at all, I know. In a basic sense, they both have IF statements, similar syntax like == and structures.
+I've picked this back up again when I found a PCB laying about. I had to wonder if AI was good enough now to help improve things. It is fortunately.
 
-What happened was the MAX7000 and ATF150X (specifically the 7032S & 1502A) behave differently to the 3032A. ROM banking is flawless, both the Gameboy being able to read and also GBXcart being able to write. The problems I ran into were with SRAM. Some carts would save and load fine, while GBXcart would fail to write or read SRAM. The software seems to not know it failed (or it's verification was destructive). Some carts would not work at all on any device. The reason I use Pokemon R/G/B/Y is due to the SRAM sprite decompression. You can see in the title screen how well it is working. This is not isolated to SRAM, this is the same for FRAM. This problem also affects some 3032A carts though less often.
+The previous update I was naive to think programming in C++ was anything like HDL. I mean it is, but the device being programmed works so differently to other CPU based systems.
 
-In the end I have decided on a path forwards. I will continue with the EPM3064A and ATF1504A chips, dropping the MAX7000 series. The reason being, the MAX7000 is just not as available, its very old now and they cost more than the MAX3000 chips. The 1504A I only wish to continue with due to its availability as new. Sadly, it doews require a deifferent method of programming with a different programmer. The other point is the move to 64 and 04 vs the original aim for 32 and 02. Well, I've been poking at the software and the macro cell count is not enough.
+The issue that has been plaguing the 7032S & 1504A, is the save RAM functionality. Games would not save, or correctly use the cartridge as work RAM. This was on the Gameboy and cart readers. I tested this over a few carts and the first one kinda worked. It was flaky but saving, yet only on the GB and not the cart reader. There worst problem is that this problem crept into some of the 3032A and 3064A carts also.
 
-I intend to start learning Verilog well enough to tackle this project again. I have a dev board on the way and that will be used to code a BCD to 7 segment display decoder. I think it's complex enough to really dig in to things as a novice, while the principles of such a decoder are well documented, making the only hurdle to creating such a thing, is the language itself.
+This code refactor seems to have fixed all these problems, not only the MAX3000 but the MAX7000 also. As of now, the ATF1504 is untested. I am hopeful that it will work also. Programming those is more complex and I've since forgotten how to do it.
+
+The smaller EPM3032A, EPM7032S & ATF1502 with 32 macro cells are now more than big enough to fit the program, no longer is it so tight. This is thanks to removing the 128KB RAM functionality, reducing the amount of registers required to address that has gained a lot of space. 
+
+This is all very nice as the smaller chips tend to use less power than the larger counterparts, even though they use the same quantity of macro cells. I'll add more detailed information on the changes in its own readme.
 
 ## Advantages vs disadvantages:
 
@@ -120,6 +124,10 @@ Removed internal FRAM chip select logic to lower cartridge power consumption 1 t
 ### V2.0
 
 Changed project compiler settings to lower cartridge power consumption 36 to 41%
+
+## V3.0
+
+Updated with help of AI. This project was out of my wheel house from the start. Hey, we got there in the end.
 
 ## Links
 
