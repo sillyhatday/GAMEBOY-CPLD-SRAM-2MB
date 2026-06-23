@@ -1,94 +1,87 @@
 # GAMEBOY-CPLD-SRAM-2MB
 
+>[!WARNING]
+>Current circuit board revision does not include support for the MAX7000 or ATF150x CPLD without bodges.
+
 ## Introduction:
 
-This is my take of a CPLD based flash cart. This is my second version of it, and my final version. I plan to update to a 4MB version.
+This is my take of a CPLD based flash cart for the Gameboy.
 
 The whole project is based from Alex's project from years back. Without that project, I would never have picked this up and spend my time figuring out how to work with CPLDs. I am not a programmer and do not claim to be. Picking up Alex's code I can see how things work with my previous knowledge of how carts operate.
-This cart version uses SRAM like the original project from Alex.
 
-As much as I love using FRAM to bring this old technology towards the modern age in terms of convenience, it is technically not compatible due to timing reasons, it's really expensive new, China dodgy parts don't always work, on the whole it's a pain.
-Embrace SRAM, it's cheap and available. The battery life is not an issue, as my original Pokemon Red, Blue and Yellow carts are still using the original batteries with lots of life left in them yet after 25 years.
+This version uses SRAM like Alex's did originally. As much as I love using FRAM to bring this old technology towards the modern age, it is technically not compatible due to timing and different glue logic requirments. Not to mention it's really expensive new, China sells cheap factory rejects, and on the whole it's a pain in the ass. Embrace SRAM, it's cheap and available. The battery life is not an issue as people want to think, my original Pokemon Red, Blue and Yellow carts are still using the original batteries with over 3v in them after 28 years.
 
-As well as a thanks to Alex for sharing his project for us to use, I want to thank Bucket Mouse for also sharing his work with everyone. The SRAM supervisor circuit is directly lifted from his cartridge projects and saved me a lot of time and frustration designing my own.
+The newest update has been done with the help of AI. I just wanted to get this thing done so it is off my active project list. Even though AI has helped, I have learned a little bit more about how CPLDs work because of it. In the future I'd like to use the knowledge to do another project.
 
-### Alex's project can be found here: https://github.com/insidegadgets/Gameboy-MBC5-MBC1-Hybrid
-### Buckets projects can be found here: https://github.com/MouseBiteLabs
+Some reasons to build this project are:
 
-## Update June 2026
+	+ No need for sourcing a donor cartridge
+	+ Multi MBC compatibility
+	+ Cheaper to build vs a donor cart (initially not, more made, more saved)
+	+ No messing with expensive FRAM or dodgy back ally FRAM
 
-I've picked this back up again when I found a PCB laying about. I had to wonder if AI was good enough now to help improve things. It is fortunately.
+>[!IMPORTANT]
+> This project is designed with MBC5 functionality as the main priority. Compatibility with MBC1 is added on top, therefore, compatibility is not guaranteed. Super Mario Land 2 & Zelda: Link's Awakening work here, where they have issues running on a normal MBC5 chip. However, Donkey Kong Land does not work. Maybe one day I can create an MBC1 CPLD mapper.
 
-The previous update I was naive to think programming in C++ was anything like HDL. I mean it is, but the device being programmed works so differently to other CPU based systems.
+>[!NOTE]
+>For updates, see towards the end of the readme
 
-The issue that has been plaguing the 7032S & 1504A, is the save RAM functionality. Games would not save, or correctly use the cartridge as work RAM. This was on the Gameboy and cart readers. I tested this over a few carts and the first one kinda worked. It was flaky but saving, yet only on the GB and not the cart reader. There worst problem is that this problem crept into some of the 3032A and 3064A carts also.
+## 🟦 Project State:
 
-This code refactor seems to have fixed all these problems, not only the MAX3000 but the MAX7000 also. As of now, the ATF1504 is untested. I am hopeful that it will work also. Programming those is more complex and I've since forgotten how to do it.
-
-The smaller EPM3032A, EPM7032S & ATF1502 with 32 macro cells are now more than big enough to fit the program, no longer is it so tight. This is thanks to removing the 128KB RAM functionality, reducing the amount of registers required to address that has gained a lot of space. 
-
-This is all very nice as the smaller chips tend to use less power than the larger counterparts, even though they use the same quantity of macro cells. I'll add more detailed information on the changes in its own readme.
-
-## Project State:
-
-### Done
+### :green_circle: Done
 
 	- Get a cartridge that works well enough
 	- Make the Altera 3032A & 3064A both work
 	- Fix SRAM problems with MAX7000 and edge case MAX3000
-
-### In Progress
-
 	- Fix this readme after half updating and rage quitting. Remove V2.0 PCB pics.
 	- Write draft of instructions for programming Atmel chips
+
+### :yellow_circle: In Progress
+
 	- Do some power tests of carts I have built so far.
 
-## To Do
+### :white_circle: To Do
 
 	- Test flashing Atmel chips in circuit
 	- Design some hardware to flash Atmel chips in circuit
 	- Update PCB to include solder jumper for different CPLD families.
 	- Some issues with SRAM in FlashGBX with Atmel 1502A. Check hardware over & adjust WinCUPL settings.
 
-## Advantages vs disadvantages:
-
-### Advantages:
-
-	+ No need for sourcing a donor cartridge
-	+ Multi MBC compatibility
-	+ Cheaper to build vs a donor cart (initially not, more made, more saved)
- 	+ No messing with expensive FRAM or dodgy back ally FRAM
-
-### Disadvantages:
-
-	- Parts are all obsolete and found second hand
-	- Programming the CPLD is non-trivial
-	- Extra components required to program CPLD
- 	- More circuit board components required
-  	- Requires a battery to save data
-
-## Prerequisites
-
-You are going to need a bunch of stuff to complete this project.
+## 🟨 Prerequisites
 
 	* The full components parts list and cart PCB
 	* (Optional) JTAG adaptor PCB
-	* Altera USB Blaster for JTAG (Cheap copies work, see below)
-	* Windows PC with Quartus II Programmer or Quartus II Web Edition
+	* Altera USB Blaster or FT232 for JTAG (cheap clones work)
+	* Windows PC with Quartus II Programmer, Quartus II Web Edition or OpenOCD
 	* GBxCart and related software
  	* Modified Gameboy cart shell or (optional) 3D printed Game Gear cart adaptor
 	* Equipment to solder tiny SMD components
- 	* Skills to solder tiny SMD components
+	* Skills to solder tiny SMD components reliably
 
-## Parts List
+## 🔌 CPLD Programming
+
+>[!TIP]
+>Guides on setting up and programming your chosen CPLD
+
+[Altera Guide](AlteraProgrammingGuide.md) <br>
+[Atmel Guide](AtmelProgrammingGuide.md) <br>
+
+## 🟦 Parts List
 
 ### Cartridge x1
+
+>[!IMPORTANT]
+>When ordering cartridge PCBs, make sure to choose 0.8mm thickness and gold plating. <br>
+>Altera MAX3000 & MAX7000 CPLDs are obselete and only found on Aliexpress. I suggest the 3032A. (MAX7000 is a relic at this point). <br>
+>If ordering MAX7000, get the S version, otherwise throw your money in a fire. Eg, EPM7032S <br>
+>Atmel ATF150x parts can be bought new from reputable sellers. However they are trickier to program for the average person. <br>
+>Order FRAM from Aliexpress & eBay at your own risk, they are known to be ***extremely*** unreliable. <br>
 
 | Part No. | Package | Qty |
 | -------- | ------- | --- |
 | 29F016 | TSOP48 | 1 |
-| IS62C256 | SOP28 | 1 |
-| EPM3064A/32A | TQFP44 | 1 |
+| IS62C256* | SOIC28 | 1 |
+| CPLD** | TQFP44 | 1 |
 | AP2127K-3.3TRG1 | SOT23-5 | 1 |
 | TPS3613-01DGSR | 10VSSOP | 1 |
 | 2N7002 | SOT23 | 1 |
@@ -99,8 +92,8 @@ You are going to need a bunch of stuff to complete this project.
 | Res 130K | 0603 | 1 |
 | Bat Holder | AliExp | 1 |
 
-[ IS62C256 can be replaced by nearly any SOP28 SRAM chip with a capacity of 256kbit. The ISSI part is dumb cheap brand new from reputable sellers.
-Other alternatives include but not limited to: AS6C6256, CY62256, R1LP5256 ]
+*Other alternatives include, but are not limited to: AS6C6256, CY62256, R1LP5256. <br>
+**EPM3064A, EPM3032A, EPM7064S, EPM7032S, ATF1504A or ATF1502A. <br>
 
 ### JTAG Adaptor
 
@@ -112,69 +105,56 @@ Other alternatives include but not limited to: AS6C6256, CY62256, R1LP5256 ]
 | GG Adaptor or Shell | 1 |
 | USB Blaster | 1 |
 
-## Compatibility
+>[!TIP]
+>Link to GG Adaptor: https://www.thingiverse.com/thing:5830799
 
-Alex who wrote this code originally, designed it to be an MBC5 emulation. It behaves well enough as a MBC5, that Gameboys and Flash programmers do not seem to care. One difference from the top of my head, after reading Alex's blog, is that this CPLD version does not map bank 0 as true hardware does. This should never be an issue, as bank 0 is always available in the lower 16KB address space [0x0000-3FFF]. On real hardware, if you mapped bank 0 to the upper 16KB [0x4000-7FFF], you would get the data always available in 0x0000-3FFF in 0x4000-7FFF. In this implementation, it will do as the MBC1 does, by interpreting a bank 0 map request as a bank 1 request.
+## Build Photos
 
-In theory this should never cause an issue. Logically there is no reason to map bank 0 in this use case. A much better idea would be, to map bank 1 as the default in the upper address space [0x4000-7FFF]. This way you would have the first 32KB chunk of the ROM available like any 32KB size game. The only way this will cause and issue is if the game programmer coded a zero bank map and then tried reading the upper memory space [0x4000-7FFF].
+<img width="817" height="894" alt="CPLDcartcomp" src="https://github.com/user-attachments/assets/bdbadce4-4fd0-4a40-a44a-f138d2c1ebd6" />
 
-So why did Nintendo remove this idiot proof feature from their first mapper in the later ones? In my opinion, I think they realised mapping 0 bank is a waste of time and it doesn't hurt anything to do. But mostly as MBC1 and MBC5 use a second register to select the highest address bit in their extended ROM mode. Doing this you end up with holes in the address space you need to keep track of. For MBC1 you have 512KB of ROM space available, in extended mode you have 2MB available. The quadrupling of space uses another register to store 2 extra bits. These are then output on two extra I/O pins. If you want the first bank of the 1 to 1.5MB ROM space, that is bank zero, which switches to a 1. Each 512KB ROM space is missing bank 0. In MBC5 this does not exist as it is able to map bank zero, therefore, you do not have to keep track of things.
+**Different CPLD** <br>
+<img width="750" height="725" alt="CPLDcartclose" src="https://github.com/user-attachments/assets/519aafab-0ec3-47fe-abc3-09b49094288e" />
 
-The theory is that this should be 100% compatible with MBC5. That said, it is not programmed to behave exactly like an MBC5, so there could be a game out there that doesn't work.
+## Update June 2026
 
-## PCB Versions
+I've picked this back up again when I found a PCB laying about. I had to wonder if AI was good enough now to help improve things. It is fortunately.
 
-### V1.0
+The previous update I was naive to think programming in C++ was anything like Verilog. I mean it is, but the device being programmed works so differently to other CPU based systems.
 
-First version, confirmed working.
+The issue that has been plaguing the 7032S & 1504A, is the save RAM functionality. Games would not save, or correctly use the cartridge as work RAM. This was on the Gameboy and cart readers. I tested this over a few carts and the first one kinda worked. It was flaky but saving, yet only on the GB and not the cart reader. There worst problem is that this problem crept into some of the 3032A and 3064A carts also.
 
-![Gameboy CPLD Cart + SRAM Front](https://github.com/user-attachments/assets/bfedf3a0-f963-46ce-9725-eeb6cd695a92)
+This code refactor seems to have fixed all these problems, not only the MAX3000 but the MAX7000 also. As of now, the ATF1504 is untested. I am hopeful that it will work also. Programming those is more complex and I've since forgotten how to do it.
 
-![Gameboy CPLD Cart + SRAM Back](https://github.com/user-attachments/assets/0385e6f7-6376-4245-91c1-fe59061d6bce)
+The smaller EPM3032A, EPM7032S & ATF1502 with 32 macro cells are now more than big enough to fit the program, no longer is it so tight. This is thanks to removing the 128KB RAM functionality, reducing the amount of registers required to address that has gained a lot of space. Additional code can be added for more functionality such as moving the FRAM gate logic into the CPLD and making it user programmable with a solder bridge on the PCB.
+
+This is all very nice as the smaller chips tend to use less power than the larger counterparts, even though they use the same quantity of macro cells. I'll add more detailed information on the changes in its own readme.
+
+When the Atmel part is confirmed working, I'll update the rest of the readme to walk though programming those. Ideally the PCB could use a revision to add the FRAM mode jumper and a jumper to bypass the 3.3v regulator when using the MAX7000 and ATF15xx chips. Again, I'll get to that when testing is complete.
 
 ## Firmware Versions
 
-### V1.0
+| Version | Status | Notes |
+| ------- | ------ | ----- |
+| V1.0.0  | Initial | Original code from Alex's blog |
+| V1.0.1  | Fix | Removed internal FRAM chip select logic to lower cartridge power consumption 1 to 3% |
+| V2.0.0  | Fix | Changed project compiler settings to lower cartridge power consumption 36 to 41% |
+| V3.0.0  | Current | AI helper to teach me and structure code better. Use of macro cells more efficient. Logic split into smaller sections. More reliable, cleaner code, better output waveforms (I need to confirm that). |
 
-Original code from Alex's blog
+## 🩷 Links
 
-### V1.1
+🔧 Driver Install: https://www.terasic.com.tw/wiki/Intel_USB_Blaster_Driver_Installation_Instructions <br>
+⬇️ Driver Download: https://github.com/sudhamshu091/USB-Blaster-Driver-for-DE10-lite <br>
+🖨️ Game gear Adaptor: https://www.thingiverse.com/thing:5830799 <br>
+⏬ Alt Link Quartus: https://archive.org/details/quartus-iiprogrammer-and-signal-tap-ii-13.1.0.162.7z <br>
+🛍️ Inside Gadgets Shop: https://shop.insidegadgets.com <br>
+📎 Inside Gadgets GitHub: https://github.com/insidegadgets <br>
+📷 Inside Gadgets Insta: https://www.instagram.com/inside.gadgets <br>
+🖇️ Bytendo Mods GitHub: https://github.com/bytendomods <br>
+🐭 Bucket Mouse: https://github.com/Bucket-Mouse <br>
+🛒 Natalie Shop: https://nataliethenerd.com/ <br>
+🤓 Natalie GitHub: https://github.com/natalie-lang/natalie <br>
 
-Removed internal FRAM chip select logic to lower cartridge power consumption 1 to 3%
-
-### V2.0
-
-Changed project compiler settings to lower cartridge power consumption 36 to 41%
-
-## V3.0
-
-Updated with help of AI. This project was out of my wheel house from the start. Hey, we got there in the end.
-
-## Links
-
-Here are the links mentioned through the readme. They are already in the readme, but also here for aid of finding them.
-
-Driver Installation: https://www.terasic.com.tw/wiki/Intel_USB_Blaster_Driver_Installation_Instructions
-
-Driver Download: https://github.com/sudhamshu091/USB-Blaster-Driver-for-DE10-lite
-
-Game gear Adaptor: https://www.thingiverse.com/thing:5830799
-
-Alternative Download for Quartus: https://archive.org/details/quartus-iiprogrammer-and-signal-tap-ii-13.1.0.162.7z
-
-## Extra Links
-
-Once again, thankyou to everyone for sharing their work with everyone for free
-
-https://shop.insidegadgets.com
-
-https://github.com/insidegadgets
-
-https://www.instagram.com/inside.gadgets
-
-https://github.com/bytendomods
-
-https://github.com/Bucket-Mouse
+Thanks to Xukkorz, Drew, Jamo, Alex, Deceptive Thinker, Natalie the Nerd & anyone else who I may have forgotten.
 
 ## License
 
