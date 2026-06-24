@@ -58,13 +58,31 @@ Some reasons to build this project are:
 	* Equipment to solder tiny SMD components
 	* Skills to solder tiny SMD components reliably
 
-## 🔌 CPLD Programming
+## 🔌 CPLD Information
 
 >[!TIP]
->Guides on setting up and programming your chosen CPLD
+>Information on chosing a CPLD <br>
+>[ALTERA PROGRAMMING GUIDE](AlteraProgrammingGuide.md) <br>
+>[ATMEL PROGRAMMING GUIDE](AtmelProgrammingGuide.md) <br>
+>[CPLD POWER USAGE](CartPowerUse.md) <br>
 
-[Altera Guide](AlteraProgrammingGuide.md) <br>
-[Atmel Guide](AtmelProgrammingGuide.md) <br>
+Prices vary, these are typical.
+
+| Model | Cost x1 | Vendor |
+| ----- | ------- | ------ |
+| 3032A: | €1.16 | Aliexpress |
+| 3064A: | €1.60 | Aliexpress |
+| 7032S: | €1.85 | Aliexpress |
+| 1504A: | €1.97 | Mouser |
+
+Depending on the model, the AP2127K-3.3TRG1 may not be needed.
+
+| Model | AP2127K | Jumper |
+| ----- | ------- | ------ |
+| 3032A | YES | NO |
+| 3064A | YES | NO |
+| 7032S | NO | YES |
+| 1502A | NO | YES |
 
 ## 🟦 Parts List
 
@@ -82,7 +100,7 @@ Some reasons to build this project are:
 | 29F016 | TSOP48 | 1 |
 | IS62C256* | SOIC28 | 1 |
 | CPLD** | TQFP44 | 1 |
-| AP2127K-3.3TRG1 | SOT23-5 | 1 |
+| AP2127K-3.3TRG1*** | SOT23-5 | 1 |
 | TPS3613-01DGSR | 10VSSOP | 1 |
 | 2N7002 | SOT23 | 1 |
 | Cap 100nF | 0603 | 5 |
@@ -92,8 +110,9 @@ Some reasons to build this project are:
 | Res 130K | 0603 | 1 |
 | Bat Holder | AliExp | 1 |
 
-*Other alternatives include, but are not limited to: AS6C6256, CY62256, R1LP5256. <br>
-**EPM3064A, EPM3032A, EPM7064S, EPM7032S, ATF1504A or ATF1502A. <br>
+**Other alternatives include, but are not limited to: AS6C6256, CY62256, R1LP5256. <br>
+***EPM3064A, EPM3032A, EPM7064S, EPM7032S, ATF1504A or ATF1502A. <br>
+****See CPLD info*
 
 ### JTAG Adaptor
 
@@ -106,7 +125,7 @@ Some reasons to build this project are:
 | USB Blaster | 1 |
 
 >[!TIP]
->Link to GG Adaptor: https://www.thingiverse.com/thing:5830799
+>Link to [Game Gear Adaptor](https://www.thingiverse.com/thing:5830799)
 
 ## Build Photos
 
