@@ -1,4 +1,4 @@
-module MBC5_CPLD_Claude (
+module MBC5_CPLD (
     reset,
     inputAddress,
     inputData,
